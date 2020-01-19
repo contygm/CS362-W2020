@@ -9,12 +9,16 @@ import Dominion
 import random
 from collections import defaultdict
 
-# Get player names
+# description: Get player names
+# input: n/a
+# output: player_names
 def getPlayerNames():
     player_names = ["Annie","*Ben","*Carla"]
     return player_names
 
-# number of victory cards
+# description: set the number of victory cards
+# input: player_names
+# output: nV (number of victory cards)
 def getNumVictoryCards(player_names):
     if len(player_names) > 2:
         nV = 12
@@ -22,12 +26,16 @@ def getNumVictoryCards(player_names):
         nV = 8
     return nV
 
-# number of curses
+# description: set number of curses
+# input: player_names
+# output: nC (number of curses)
 def getNumCurses(player_names):
     nC = -10 + 10 * len(player_names)
     return nC
 
-# Define box
+# description: Define box items
+# input: nV (number of victory cards)
+# output: box
 def defineBox(nV):
     # initialize box
     box = {}
@@ -60,7 +68,9 @@ def defineBox(nV):
     box["Throne Room"]=[Dominion.Throne_Room()]*10
     return box
 
-# initialize supply order
+# description: initialize supply order
+# input: n/a
+# output: supply_order
 def getSupplyOrder():
     supply_order = {0:['Curse','Copper'],2:['Estate','Cellar','Chapel','Moat'],
                     3:['Silver','Chancellor','Village','Woodcutter','Workshop'],
@@ -69,7 +79,9 @@ def getSupplyOrder():
                     6:['Gold','Adventurer'],8:['Province']}
     return supply_order
 
-# Pick 10 cards from box to be in the supply.
+# description: Pick 10 cards from box to be in the supply.
+# input: box
+# output: supply
 def pickBoxCards(box):
     boxlist = [k for k in box]
     random.shuffle(boxlist)
@@ -77,9 +89,9 @@ def pickBoxCards(box):
     supply = defaultdict(list,[(k,box[k]) for k in random10])
     return supply
 
-
-# Add standard supply cards to an existing supply deck. 
-# The supply always has these cards
+# description: Add standard supply cards to an existing supply deck. The supply always has these cards.
+# input: supply, player_names, nV (number of victory cards), nC (number of curses)
+# output: n/a
 def addStandardSupplyCards(supply, player_names, nV, nC):
     supply["Copper"]=[Dominion.Copper()]*(60-len(player_names)*7)
     supply["Silver"]=[Dominion.Silver()]*40
@@ -89,7 +101,9 @@ def addStandardSupplyCards(supply, player_names, nV, nC):
     supply["Province"]=[Dominion.Province()]*nV
     supply["Curse"]=[Dominion.Curse()]*nC
 
-# Construct the Player objects
+# description: Construct the Player objects
+# input: player_names
+# output: players
 def makePlayers(player_names):
     players = []
     for name in player_names:
@@ -101,7 +115,9 @@ def makePlayers(player_names):
             players.append(Dominion.Player(name))
     return players
 
-# Play dominion 
+# description: Play dominion 
+# input: supply, supply_order, players)
+# output: game play updates and directions
 def playGame(supply, supply_order, players):
     turn  = 0
     #initialize the trash
@@ -124,7 +140,9 @@ def playGame(supply, supply_order, players):
                 print("\r")
                 player.turn(players,supply,trash)
             
-# Final score
+# description: calculate and display final score
+# input: players
+# output: prints results
 def getFinalScore(players):
     dcs=Dominion.cardsummaries(players)
     vp=dcs.loc['VICTORY POINTS']
