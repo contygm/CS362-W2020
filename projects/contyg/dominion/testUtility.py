@@ -89,7 +89,7 @@ def pickBoxCards(box):
     supply = defaultdict(list,[(k,box[k]) for k in random10])
     return supply
 
-# description: Add standard supply cards to an existing supply deck. The supply always has these cards.
+# description: Add standard supply cards to an existing supply deck. 
 # input: supply, player_names, nV (number of victory cards), nC (number of curses)
 # output: n/a
 def addStandardSupplyCards(supply, player_names, nV, nC):
