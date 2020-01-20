@@ -10,15 +10,16 @@ import random
 from collections import defaultdict
 import testUtility
 
-#Get player names
+# Get player names
 player_names = testUtility.getPlayerNames()
 
-#number of curses and victory cards
+# number of curses and victory cards
 nV = testUtility.getNumVictoryCards(player_names)
 nC = testUtility.getNumCurses(player_names)
 
-#Define box
-box = testUtility.defineBox(nV)
+# Define box
+# DATA BUG: use curse card count instead of victory card count
+box = testUtility.defineBox(nC)
 
 # initialize supply_order
 supply_order = testUtility.getSupplyOrder()
@@ -32,8 +33,8 @@ testUtility.addStandardSupplyCards(supply, player_names, nV, nC)
 # Construct the Player objects
 players = testUtility.makePlayers(player_names)
 
-#Play the game
+# Play the game
 testUtility.playGame(supply, supply_order, players)
             
-#Final score
+# Final score
 testUtility.getFinalScore(players)
